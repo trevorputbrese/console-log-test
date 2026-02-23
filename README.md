@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Console Log Test
+
+A [Next.js](https://nextjs.org) application designed to be deployed to **Cloud Foundry** using `cf push`.
+
+## Overview
+
+<!-- This app is a Cloud Foundry deployment target used to validate:
+     - Next.js running on CF with the nodejs_buildpack
+     - Reading CredHub service credentials via VCAP_SERVICES
+     - Console.log output appearing in CF container logs -->
+
+This app includes:
+
+- A user search API route at `api/search/[query]` with mock data
+- CredHub service integration — reads credentials from `VCAP_SERVICES` and logs them
+- Console.log statements for validating CF log output via `cf logs`
 
 ## Getting Started
 
-First, run the development server:
+### Local Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Deploy to Cloud Foundry
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Make sure you are logged in to your CF target, then:
+
+```bash
+cf push
+```
+
+The `manifest.yml` is preconfigured with the `nodejs_buildpack` and binds to the `credhub-test` service instance.
+
+To tail logs after deploying:
+
+```bash
+cf logs console-log-test
+```
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
