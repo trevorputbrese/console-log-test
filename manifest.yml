@@ -1,0 +1,12 @@
+---
+applications:
+  - name: console-log-test
+    memory: 2G
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: npm run build && npm run start
+    env:
+      NODE_ENV: production
+    services:
+      - credhub-test
